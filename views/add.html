@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>新增</title>
+</head>
+
+<body>
+  <form>
+    <div>
+      <div>
+        <div style="margin-bottom: 10px;">
+          <label>渠道名称：</label>
+          <!--<input type="text" placeholder="请输入渠道id" name="channelId" id="channelId">-->
+          ‍‍<select id="pid" onchange="change()">
+            <!--<option value="10000">全部</option>-->
+            <option value="10001">微信</option>
+            <!--<option value="10002">微信手机营业厅</option>-->
+            <option value="10003">支付宝</option>
+            <option value="10004">rcs</option>
+            <option value="10006">微博</option>
+            <option value="10007">腾讯qq</option>
+        </select>
+        <span style="color:red">*</span>
+      </div>
+      <!--<div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>渠道名称：</label>
+          <input type="text" placeholder="请输入渠道名称" name="channelName" id="channelName">
+      </div>-->
+      <div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>渠道备注：</label>
+          <input type="text" placeholder="请输入渠道备注：" name="channelRemark" id="channelRemark">
+      </div>
+      <div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>渠道描述：</label>
+          <input type="text" placeholder="请输入渠道描述" name="channelDescription" id="channelDescription">
+      </div>
+      <div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>创建用户：</label>
+          <input type="text" placeholder="请输入创建用户" name="createUser" id="createUser">
+      </div>
+      <!--<div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>创建时间：</label>
+          <input type="text" placeholder="请输入创建时间" name="createTime" id="createTime">
+      </div>-->
+      <div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>更改用户：</label>
+          <input type="text" placeholder="请输入更改用户" name="updateUser" id="updateUser">
+      </div>
+      <!--<div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>更改时间：</label>
+          <input type="text" placeholder="请输入更改时间" name="updateTime" id="updateTime">
+      </div>-->
+      <div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>应用ID：</label>
+          <input type="text" placeholder="请输入应用ID" name="appId" id="appId">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class="private">
+        <divstyle="margin-bottom: 10px;">
+          <label>应用密钥：</label>
+          <input type="text" placeholder="请输入应用密钥" name="appSecret" id="appSecret">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class='weibo'>
+        <divstyle="margin-bottom: 10px;">
+          <label>用户uid：</label>
+          <input type="text" placeholder="请输入用户uid" name="weiboCid" id="weiboCid">
+      </div>
+      <div style="margin-top:10px" class='weibo'>
+        <divstyle="margin-bottom: 10px;">
+          <label>子key</label>
+          <input type="text" placeholder="请输入子key" name="weiboSubAppkey" id="weiboSubAppkey">
+      </div>
+      <div style="margin-top:10px" class='weibo'>
+        <divstyle="margin-bottom: 10px;">
+          <label>微博access tocken</label>
+          <input type="text" placeholder="请输入微博access tocken" name="weiboTockenString" id="weiboTockenString">
+          <span style="color:red">*</span>
+      </div>
+      <!--<div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>微博服务器地址：</label>
+          <input type="text" placeholder="请输入微博服务器地址" name="weiboUrl" id="weiboUrl">
+      </div>-->
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝公钥(RSA2)：</label>
+          <input type="text" placeholder="请输入支付宝公钥(RSA2)" name="alipayRsa2PublicKey" id="alipayRsa2PublicKey">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝公钥(RSA)：</label>
+          <input type="text" placeholder="请输入支付宝公钥(RSA)" name="alipayRsaPublicKey" id="alipayRsaPublicKey">
+          <span style="color:red">*</span>
+      </div>
+
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝应用公钥(RSA2)</label>
+          <input type="text" placeholder="请输入支付宝应用公钥(RSA2)" name="alipayRsa2ApplicationPublicKey" id="alipayRsa2ApplicationPublicKey">
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝应用公钥(RSA)</label>
+          <input type="text" placeholder="请输入支付宝应用公钥(RSA)" name="alipayRsaApplicationPublicKey" id="alipayRsaApplicationPublicKey">
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝应用私钥(RSA2)</label>
+          <input type="text" placeholder="请输入支付宝应用私钥(RSA2)" name="alipayPrivateRsa2ApplicationKey" id="alipayPrivateRsa2ApplicationKey">
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝应用私钥(RSA)</label>
+          <input type="text" placeholder="请输入支付宝应用私钥(RSA)" name="alipayPrivateRsaApplicationKey" id="alipayPrivateRsaApplicationKey">
+      </div>
+
+      <!--<div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝公钥：</label>
+          <input type="text" placeholder="请输入支付宝公钥" name="alipayPublicKey" id="alipayPublicKey">
+          <span style="color:red">*</span>
+      </div>-->
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝加解密钥：</label>
+          <input type="text" placeholder="请输入支付宝加解密钥" name="alipayEncodingAesKey" id="alipayEncodingAesKey">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>账号PID：</label>
+          <input type="text" placeholder="请输入账号PID" name="alipayPid" id="alipayPid">
+          <span style="color:red">*</span>
+      </div>
+      <!--<div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝私钥：</label>
+          <input type="text" placeholder="请输入支付宝私钥" name="alipayPrivateKey" id="alipayPrivateKey">
+          <span style="color:red">*</span>
+      </div>-->
+      <!--<div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝网关：</label>
+          <input type="text" placeholder="请输入支付宝网关" name="alipayAllpayGateway" id="alipayAllpayGateway">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝授权访问令牌的授权类型</label>
+          <input type="text" placeholder="请输入支付宝授权访问令牌的授权类型" name="alipayGrantType" id="alipayGrantType">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝签名编码</label>
+          <input type="text" placeholder="请输入支付宝签名编码" name="alipaySignCharset" id="alipaySignCharset">
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝编码：</label>
+          <input type="text" placeholder="请输入支付宝编码" name="alipayCharset" id="alipayCharset">
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝签名类型</label>
+          <input type="text" placeholder="请输入支付宝签名类型" name="alipaySignType" id="alipaySignType">
+      </div>
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝应用网关</label>
+          <input type="text" placeholder="请输入支付宝应用网关" name="alipayApplication" id="alipayApplication">
+      </div>-->
+      <div style="margin-top:10px" class='alipay'>
+        <divstyle="margin-bottom: 10px;">
+          <label>支付宝授权回调地址</label>
+          <input type="text" placeholder="请输入支付宝授权回调地址" name="alipayAuthorizedCallbackAddress" id="alipayAuthorizedCallbackAddress">
+      </div>
+      <!--<div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>微信服务器地址：</label>
+          <input type="text" placeholder="请输入微信服务器地址" name="wechatUrl" id="wechatUrl">
+      </div>-->
+      <div style="margin-top:10px" class='wechat'>
+        <divstyle="margin-bottom: 10px;">
+          <label>微信令牌：</label>
+          <input type="text" placeholder="请输入微信令牌" name="wechatTocken" id="wechatTocken">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;" class='wechat'>
+          <label>微信消息加解密密钥：</label>
+          <input type="text" placeholder="请输入微信消息加解密密钥" name="wechatEncodingAesKey" id="wechatEncodingAesKey">
+          <span style="color:red">*</span>
+      </div>
+      <!--<div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>飞信服务器地址</label>
+          <input type="text" placeholder="请输入飞信服务器地址" name="rcsUrl" id="rcsUrl">
+      </div>-->
+      <div style="margin-top:10px" class='qq'>
+        <divstyle="margin-bottom: 10px;">
+          <label>QQ tocken：</label>
+          <input type="text" placeholder="请输入QQ tocken" name="qqOpenKey" id="qqOpenKey">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class='qq'>
+        <divstyle="margin-bottom: 10px;">
+          <label>QQ openid</label>
+          <input type="text" placeholder="请输入QQ openid" name="qqOpenId" id="qqOpenId">
+          <span style="color:red">*</span>
+      </div>
+      <div style="margin-top:10px" class='qq'>
+        <divstyle="margin-bottom: 10px;">
+          <label>外网IP</label>
+          <input type="text" placeholder="请输入外网IP" name="qqUserIp" id="qqUserIp">
+      </div>
+      <!--<div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>QQ服务器地址</label>
+          <input type="text" placeholder="请输入QQ服务器地址" name="qqUrl" id="qqUrl">
+      </div>-->
+      <div style="margin-top:10px" class='wechat'>
+        <divstyle="margin-bottom: 10px;">
+          <label>微信类型</label>
+          <input type="text" placeholder="请输入微信类型" name="wechatEncodingAesType" id="wechatEncodingAesType">
+      </div>
+
+      <div style="margin-top:10px" class='rsc'>
+        <divstyle="margin-bottom: 10px;">
+          <label>飞信令牌</label>
+          <input type="text" placeholder="请输入飞信令牌" name="rcsTocken" id="rcsTocken">
+      </div>
+      <div style="margin-top:10px" class='rsc'>
+        <divstyle="margin-bottom: 10px;">
+          <label>飞信消息加解密密钥</label>
+          <input type="text" placeholder="请输入飞信消息加解密密钥" name="rcsEncodingAesKey" id="rcsEncodingAesKey">
+      </div>
+      <div style="margin-top:10px" class='rsc'>
+        <divstyle="margin-bottom: 10px;">
+          <label>飞信消息加解密类型</label>
+          <input type="text" placeholder="请输入飞信消息加解密类型" name="rcsEncodingAesType" id="rcsEncodingAesType">
+      </div>
+      <div style="margin-top:10px">
+        <divstyle="margin-bottom: 10px;">
+          <label>应用名称：</label>
+          <input type="text" placeholder="请输入应用名称" name="appName" id="appName">
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:10px;">
+      <button type="button" class="btn btn-w-m btn-primary m-r-xs" id="save">保存</button>
+      <button type="button" class="btn btn-w-m" id="close">取消</button>
+    </div>
+    </div>
+  </form>
+  <script src="../javascripts/jquery.min.js?v=2.1.4"></script>
+  <script src="../javascripts/layer/layer.min.js"></script>
+  <script>
+//处理file input加载的图片文件
+// $(document).ready(function(e) {
+//  //判断浏览器是否有FileReader接口
+//  if(typeof FileReader =='undefined')
+//  {
+//    console.log('1111111')
+//   $("#destination").css({'background':'none'}).html('亲,您的浏览器还不支持HTML5的FileReader接口,无法使用图片本地预览,请更新浏览器获得最好体验');
+//  //如果浏览器是ie
+//  if($.browser.msie===true)
+//  {
+//   //ie6直接用file input的value值本地预览
+//   if($.browser.version==6)
+//   {
+//     $("#imgUpload").change(function(event){   
+//     //ie6下怎么做图片格式判断?
+//     var src = event.target.value;
+//     //var src = document.selection.createRange().text; //选中后 selection对象就产生了 这个对象只适合ie
+//     var img = '<img src="'+src+'" width="200px" height="200px" />';
+//     $("#destination").empty().append(img);
+//    });
+//   }
+//   //ie7,8使用滤镜本地预览
+//   else if($.browser.version==7 || $.browser.version==8)
+//   {
+//   $("#imgUpload").change(function(event){
+//     $(event.target).select();
+//     var src = document.selection.createRange().text;
+//     var dom = document.getElementById('destination');
+//     //使用滤镜 成功率高
+//     dom.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src= src;
+//     dom.innerHTML = '';
+//     //使用和ie6相同的方式 设置src为绝对路径的方式 有些图片无法显示 效果没有使用滤镜好
+//     /*var img = '<img src="'+src+'" width="200px" height="200px" />';
+//     $("#destination").empty().append(img);*/
+//    });
+//   }
+//  }
+//  //如果是不支持FileReader接口的低版本firefox 可以用getAsDataURL接口
+//  else if($.browser.mozilla===true)
+//  {
+//   $("#imgUpload").change(function(event){
+//   //firefox2.0没有event.target.files这个属性 就像ie6那样使用value值 但是firefox2.0不支持绝对路径嵌入图片 放弃firefox2.0
+//   //firefox3.0开始具备event.target.files这个属性 并且开始支持getAsDataURL()这个接口 一直到firefox7.0结束 不过以后都可以用HTML5的FileReader接口了
+//   if(event.target.files)
+//   {
+//    //console.log(event.target.files);
+//    for(var i=0;i<event.target.files.length;i++)
+//    { 
+//      var img = '<img src="'+event.target.files.item(i).getAsDataURL()+'" width="200px" height="200px"/>';
+//     $("#destination").empty().append(img);
+//    }
+//   }
+//   else
+//   {
+//    //console.log(event.target.value);
+//    //$("#imgPreview").attr({'src':event.target.value});
+//   }
+//   });
+//  }
+//  }
+//  else
+//  {
+//    console.log('22222222')
+//  // version 1
+//  /*$("#imgUpload").change(function(e){
+//   var file = e.target.files[0];
+//   var fReader = new FileReader();
+//   //console.log(fReader);
+//   //console.log(file);
+//   fReader.onload=(function(var_file)
+//   {
+//    return function(e)
+//    {
+//    $("#imgPreview").attr({'src':e.target.result,'alt':var_file.name});
+//    }
+//   })(file);
+//   fReader.readAsDataURL(file);
+//   });*/
+   
+//   //单图上传 version 2 
+//   /*$("#imgUpload").change(function(e){
+//     var file = e.target.files[0];
+//     var reader = new FileReader(); 
+//   reader.onload = function(e){
+//    //displayImage($('bd'),e.target.result);
+//    //alert('load');
+//    $("#imgPreview").attr({'src':e.target.result});
+//   }
+//   reader.readAsDataURL(file);
+//    });*/
+//   //多图上传 input file控件里指定multiple属性 e.target是dom类型
+//    $("#imgUpload").change(function(e){ 
+//     for(var i=0;i<e.target.files.length;i++)
+//     {
+//      var file = e.target.files.item(i);
+//      console.log(file)
+//       var aaaa = file.name;
+
+//     //   $.ajax({
+//     //       url:"./upload/upload",
+//     //       async: false,
+//     //       enctype: 'multipart/form-data',
+//     //       dataType:'json',
+//     //       type:"post",
+//     //       data:{aaaa},
+//     //       success:function(data){
+//     //           if(data == 1){
+//     //             swal("保存成功!");
+//     //           }else{
+//     //             swal("异常......");
+//     //           }
+//     //       }
+//     //       // ,
+//     //       // error:function(){
+//     //       //     swal("异常信息!");
+//     //       // }
+//     // });	
+  
+
+//    //允许文件MIME类型 也可以在input标签中指定accept属性
+//    //console.log(/^image/.*$/i.test(file.type));
+//   //  if(!(/^image/.*$/i.test(file.type)))
+//   //  {
+//   //   continue;  //不是图片 就跳出这一次循环
+//   //  }
+    
+//    //实例化FileReader API
+//    var freader = new FileReader();
+//    freader.readAsDataURL(file);
+//    freader.onload=function(e)
+//    {
+//     var img = '<img src="'+e.target.result+'" width="200px" height="200px"/>';
+//     $("#destination").empty().append(img);
+//    }
+//     }
+//    });
+    
+//   //处理图片拖拽的代码
+//   var destDom = document.getElementById('destination');
+//   destDom.addEventListener('dragover',function(event){
+//    event.stopPropagation();
+//    event.preventDefault();
+//    },false);
+    
+//   destDom.addEventListener('drop',function(event){
+//    event.stopPropagation();
+//    event.preventDefault();
+//    var img_file = event.dataTransfer.files.item(0);  //获取拖拽过来的文件信息 暂时取一个
+//    //console.log(event.dataTransfer.files.item(0).type);
+   
+//   //  if(!(/^image/.*$/.test(img_file.type)))
+//   //  {
+//   //  alert('您还未拖拽任何图片过来,或者您拖拽的不是图片文件');
+//   //  return false;
+//   //  }
+//    fReader = new FileReader();
+//    fReader.readAsDataURL(img_file);
+//    fReader.onload = function(event){
+//    destDom.innerHTML='';
+//    destDom.innerHTML = '<img src="'+event.target.result+'" width="200px" height="200px"/>'; 
+//    };
+//   },false);
+//  }                   alipay wechat qq weibo
+// });
+(function () {
+   change();
+})()
+   function change(){
+     if($('#pid option:selected').val() == '10001'){ //微信
+       $('.alipay').hide();
+       $('.qq').hide();
+       $('.weibo').hide();
+       $('.wechat').show();
+       $('.rsc').hide();
+     }
+    //  else if($('#pid option:selected').val() == '10002'){ //微信手机营业厅
+    //    $('.alipay').hide();
+    //    $('.qq').hide();
+    //    $('.weibo').hide();
+    //    $('.wechat').show();
+    //  }
+     else if($('#pid option:selected').val() == '10003'){ //支付宝
+       $('.wechat').hide();
+       $('.qq').hide();
+       $('.weibo').hide();
+       $('.alipay').show();
+       $('.rsc').hide();
+       $('.private').hide();
+     }else if($('#pid option:selected').val() == '10004'){ //rcs
+       $('.wechat').hide();
+       $('.qq').hide();
+       $('.weibo').hide();
+       $('.alipay').hide();
+       $('.rsc').show();
+       $('.private').show();
+     }else if($('#pid option:selected').val() == '10006'){ // 微博
+       $('.wechat').hide();
+       $('.qq').hide();
+       $('.alipay').hide();
+       $('.weibo').show();
+       $('.rsc').hide();
+       $('.private').show();
+     }else if($('#pid option:selected').val() == '10007'){ // 腾讯qq
+       $('.wechat').hide();
+       $('.weibo').hide();
+       $('.alipay').hide();
+       $('.qq').show();
+       $('.rsc').hide();
+       $('.private').show();
+     }
+   };
+  $("#save").click(function(){
+
+      
+      var array = {};
+      // array.alipayGrantType = $('#alipayGrantType').val();
+      // array.channelId = $('#channelId').val();
+      // array.channelName = $('#channelName').val();
+      // if($('#pid option:selected').text() == '全部'){
+      //   alert('请选择渠道名称');
+      //   return false;
+      // }else{
+      array.channelId = $('#pid option:selected').val();
+      array.channelName = $('#pid option:selected').text();
+      // }
+      array.channelRemark = $('#channelRemark').val();
+      array.channelDescription = $('#channelDescription').val();
+      array.createUser = $('#createUser').val();
+      array.appName = $('#appName').val();
+
+      // array.createTime = $('#createTime').val();
+      // array.createTime = (new Date($('#createTime').val())).getTime();
+      array.updateUser = $('#updateUser').val();
+      // array.updateTime = $('#updateTime').val();
+      // array.updateTime = (new Date($('#updateTime').val())).getTime();
+      if($('#appId').is(':hidden')){
+          array.appId = '';
+      }else{
+        if($('#appId').val() == '' || $('#appId').val().trim().length == 0){
+          layer.alert('请输入应用id');
+          return false;
+        }else{
+          array.appId = $('#appId').val();
+        }
+      }
+
+ if($('#appSecret').is(':hidden')){
+          array.appSecret = '';
+    }else{
+       if($('#appSecret').val() == '' && $('#appSecret').val().trim().length == 0){
+        layer.alert('请输入应用密钥');
+        return false;
+       }else{
+       array.appSecret = $('#appSecret').val();
+       }
+    }
+      array.weiboCid = $('#weiboCid').val();
+      // array.updateTime = (new Date($('#updateTime').val())).getTime();
+      array.weiboSubAppkey = $('#weiboSubAppkey').val();
+      if($('#weiboTockenString').is(':hidden')){
+          array.weiboTockenString = '';
+      }else{
+          if($('#weiboTockenString').val() == '' && $('#weiboTockenString').val().trim().length == 0){
+            layer.alert('请输入微博access tocken');
+            return false;
+          }else{
+          array.weiboTockenString = $('#weiboTockenString').val();
+          }
+      }
+      // array.weiboUrl = $('#weiboUrl').val();
+       if($('#alipayRsa2PublicKey').is(':hidden')){
+          array.alipayRsa2PublicKey = '';
+      }else{
+          if($('#alipayRsa2PublicKey').val() == '' && $('#alipayRsa2PublicKey').val().trim().length == 0){
+            layer.alert('请输入支付宝公钥（RSA2）');
+            return false;
+          }else{
+          array.alipayRsa2PublicKey = $('#alipayRsa2PublicKey').val();
+          }
+      }
+      if($('#alipayRsaPublicKey').is(':hidden')){
+          array.alipayRsaPublicKey = '';
+      }else{
+          if($('#alipayRsaPublicKey').val() == '' && $('#alipayRsaPublicKey').val().trim().length == 0){
+            layer.alert('请输入支付宝公钥（RSA）');
+            return false;
+          }else{
+          array.alipayRsaPublicKey = $('#alipayRsaPublicKey').val();
+          }
+      }
+      // if($('#alipayPublicKey').is(':hidden')){
+      //     array.alipayPublicKey = '';
+      // }else{
+      //     if($('#alipayPublicKey').val() == ''){
+      //       layer.alert('请输入支付宝公钥');
+      //       return false;
+      //     }else{
+      //     array.alipayPublicKey = $('#alipayPublicKey').val();
+      //     }
+      // }
+      if($('#alipayPid').is(':hidden')){
+          array.alipayPid = '';
+      }else{
+          if($('#alipayPid').val() == '' && $('#alipayPid').val().trim().length == 0){
+            layer.alert('请输入账号PID');
+            return false;
+          }else{
+          array.alipayPid = $('#alipayPid').val();
+          }   
+      }   
+      if($('#alipayEncodingAesKey').is(':hidden')){
+          array.alipayEncodingAesKey = '';
+      }else{
+          if($('#alipayEncodingAesKey').val() == '' && $('#alipayEncodingAesKey').val().trim().length == 0){
+            layer.alert('请输入支付宝加解密钥');
+            return false;
+          }else{
+          array.alipayEncodingAesKey = $('#alipayEncodingAesKey').val();
+          }   
+      }   
+      
+      //  if($('#alipayPrivateKey').is(':hidden')){
+      //     array.alipayPrivateKey = '';
+      // }else{
+      //     if($('#alipayPrivateKey').val() == ''){
+      //       layer.alert('请输入支付宝私钥');
+      //       return false;
+      //     }else{
+      //     array.alipayPrivateKey = $('#alipayPrivateKey').val();
+      //     }
+      // }
+      // if($('#alipayAllpayGateway').is(':hidden')){
+      //     array.alipayAllpayGateway = '';
+      // }else{
+      //     if($('#alipayAllpayGateway').val() == ''){
+      //       layer.alert('请输入支付宝网关');
+      //       return false;
+      //     }else{
+      //     array.alipayAllpayGateway = $('#alipayAllpayGateway').val();
+      //     }  
+      // }        
+      // array.alipaySignCharset = $('#alipaySignCharset').val();
+      // array.alipayCharset = $('#alipayCharset').val();
+      // array.alipaySignType = $('#alipaySignType').val();
+      // array.alipayApplication = $('#alipayApplication').val();
+
+      array.alipayAuthorizedCallbackAddress = $('#alipayAuthorizedCallbackAddress').val();
+      array.alipayRsa2ApplicationPublicKey  = $('#alipayRsa2ApplicationPublicKey').val();
+      array.alipayRsaApplicationPublicKey  = $('#alipayRsaApplicationPublicKey').val();
+      array.alipayPrivateRsa2ApplicationKey  = $('#alipayPrivateRsa2ApplicationKey').val();
+      array.alipayPrivateRsaApplicationKey  = $('#alipayPrivateRsaApplicationKey').val();
+      // array.wechatUrl = $('#wechatUrl').val();
+      if($('#wechatTocken').is(':hidden')){
+          array.wechatTocken = '';
+      }else{
+          if($('#wechatTocken').val() == '' && $('#wechatTocken').val().trim().length == 0){
+            layer.alert('请输入微信令牌');
+            return false;
+          }else{
+          array.wechatTocken = $('#wechatTocken').val();
+          }
+      }
+      if($('#wechatEncodingAesKey').is(':hidden')){
+          array.wechatEncodingAesKey = '';
+      }else{
+          if($('#wechatEncodingAesKey').val() == '' && $('#wechatEncodingAesKey').val().trim().length == 0){
+            layer.alert('请输入微信消息加解密密钥');
+            return false;
+          }else{
+          array.wechatEncodingAesKey = $('#wechatEncodingAesKey').val();
+          }
+      }
+      array.wechatEncodingAesType = $('#wechatEncodingAesType').val();
+      array.alipayPublicKey = $('#alipayPublicKey').val();
+      // array.rcs_url = $('#rcsUrl').val();
+      if($('#qqOpenKey').is(':hidden')){
+          array.qqOpenKey = '';
+      }else{
+          if($('#qqOpenKey').val() == '' && $('#qqOpenKey').val().trim().length == 0){
+            layer.alert('请输入QQ tocken');
+            return false;
+          }else{
+          array.qqOpenKey = $('#qqOpenKey').val();
+          }
+      }
+      if($('#qqOpenId').is(':hidden')){
+          array.qqOpenId = '';
+      }else{
+          if($('#qqOpenId').val() == '' && $('#qqOpenId').val().trim().length == 0){
+            layer.alert('请输入QQ openId');
+            return false;
+          }else{
+          array.qqOpenId = $('#qqOpenId').val();
+          }
+      }
+      array.qqUserIp = $('#qqUserIp').val();
+      array.rcsTocken = $('#rcsTocken').val();
+      array.rcsEncodingAesKey = $('#rcsEncodingAesKey').val();
+      array.rcsEncodingAesType = $('#rcsEncodingAesType').val();
+      // array.qqUrl = $('#qqUrl').val();
+      console.log(array);
+      $(this).attr("disabled","disabled");
+       $.ajax({
+        			type: 'post',
+              url: './save',
+              data: { array },
+              async:true,
+              success: function (data) {
+                console.log(data);
+                data = JSON.parse(data);
+                if (data.message == "成功") {
+                  parent.layer.alert("保存成功", function () { parent.location.reload(); });
+                } else {
+                  parent.layer.alert(data.errorMsg, function () { parent.location.reload(); });
+                }
+                $(this).removeAttr("disabled");
+              }
+       });
+  }); 
+
+  $("#close").click(function(){
+    parent.layer.closeAll();
+  });
+  
+  </script>
+</body>
+
+</html>

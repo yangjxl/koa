@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>account</title>
+  <style>
+    table tbody tr {
+      cursor: pointer;
+    }
+    
+    table tr.active {
+      background: #999
+    }
+  </style>
+</head>
+
+<body>
+  <div style="text-align:center;margin-top:35px">
+    <input type="text" id="Data" name="Data" />
+    <button id="searchAccountId" type="button">Id&nbsp;搜索</button>
+    <button id="search" type="button">所有&nbsp;搜索</button>
+    <!--<button id="searchOriginalId" type="button">accountOriginalId&nbsp;搜索</button>-->
+    <button id="searchChannelId" type="button">accountChannelId&nbsp;搜索</button>
+    <button id="searchBusinessType" type="button">accountAppId&nbsp;搜索</button>
+    <button id="add" type="button">&nbsp;新增</button>
+    <button id="edit" type="button"></span>&nbsp;修改</button>
+    <button id="del" type="button"></span>&nbsp;删除</button>
+  </div>
+  <div id="myDiv" style="margin-top:35px">
+    <table id="tableExcel" width="100%" border="1" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th>渠道id</th>
+          <th>渠道名称</th>
+          <th>渠道备注</th>
+          <th>渠道描述</th>
+          <th>创建用户</th>
+          <th>创建时间</th>
+          <th>更改用户</th>
+          <th>更改时间</th>
+          <th>应用ID</th>
+          <th>应用名称</th>
+          <th>应用密钥</th>
+          <th>微博用户uid</th>
+          <th>微博子key</th>
+          <th>微博access tocken</th>
+          <!--<th>微博服务器地址</th>-->
+          <th>支付宝公钥(RSA2)</th>
+          <th>支付宝公钥(RSA)</th>
+          <th>支付宝应用公钥(RSA2)</th>
+          <th>支付宝应用公钥(RSA)</th>
+          <th>支付宝应用私钥(RSA2)</th>
+          <th>支付宝应用私钥(RSA)</th>
+          <!--<th>支付宝应用私钥(RSA)</th>-->
+          <th>支付宝消息加解密钥</th>
+          <!--<th>支付宝公钥</th>-->
+          <th>支付宝开发者账号PID</th>
+          <!--<th>支付宝私钥</th>-->
+          <!--<th>支付宝网关</th>
+          <th>支付宝授权访问令牌的授权类型</th>
+          <th>支付宝签名编码</th>
+          <th>支付宝编码</th>
+          <th>支付宝签名类型</th>
+          <th>支付宝应用网关</th>-->
+          <th>支付宝授权回调地址</th>
+          <!--<th>微信服务器地址</th>-->
+          <th>微信令牌</th>
+          <th>微信消息加解密密钥</th>
+          <th>微信消息加解密类型</th>
+          <!--<th>飞信服务器地址</th>-->
+          <th>QQ access_token</th>
+          <th>QQ openid</th>
+          <th>QQ 外网IP</th>
+          <!--<th>QQ服务器地址</th>-->
+          <th>id</th>
+          <th>服务器地址</th>
+          <th>飞信Tocken</th>
+          <th>飞信消息加解密密钥</th>
+          <th>飞信消息加解密类型</th>
+        </tr>
+      </thead>
+      <tbody id="DataList">
+      </tbody>
+    </table>
+  </div>
+  <form>
+    <input type="hidden" id="hiddenId" />
+    <input type="hidden" id="hiddenChannelId" />
+    <input type="hidden" id="hiddenChannelName" />
+    <input type="hidden" id="hiddenChannelRemark" />
+    <input type="hidden" id="hiddenChannelDescription" />
+    <input type="hidden" id="hiddenCreateUser" />
+    <input type="hidden" id="hiddenCreateTime" />
+    <input type="hidden" id="hiddenUpdateUser" />
+    <input type="hidden" id="hiddenUpdateTime" />
+    <input type="hidden" id="hiddenAppId" />
+    <input type="hidden" id="hiddenAppSecret" />
+    <input type="hidden" id="hiddenWeiboCid" />
+    <input type="hidden" id="hiddenWeiboSubAppkey" />
+    <input type="hidden" id="hiddenWeiboTockenString" />
+    <!--<input type="hidden" id="hiddenWeiboUrl" />-->
+    <input type="hidden" id="hiddenAlipayRsa2PublicKey" />
+    <input type="hidden" id="hiddenAlipayRsaPublicKey" />
+    <input type="hidden" id="hiddenAlipayPublicKey" />
+    <input type="hidden" id="hiddenAlipayPid" />
+    <input type="hidden" id="hiddenAlipayPrivateKey" />
+    <input type="hidden" id="hiddenAlipayAllpayGateway" />
+    <input type="hidden" id="hiddenAlipayGrantType" />
+    <input type="hidden" id="hiddenAlipaySignCharset" />
+    <input type="hidden" id="hiddenAlipayCharset" />
+    <input type="hidden" id="hiddenAlipaySignType" />
+    <input type="hidden" id="hiddenAlipayApplication" />
+    <input type="hidden" id="hiddenAlipayAuthorizedCallbackAddress" />
+    <!--<input type="hidden" id="hiddenWechatUrl" />-->
+    <input type="hidden" id="hiddenWechatTocken" />
+    <input type="hidden" id="hiddenWechatEncodingAesKey" />
+    <input type="hidden" id="hiddenWechatEncodingAesType" />
+    <!--<input type="hidden" id="hiddenRcsUrl" />-->
+    <input type="hidden" id="hiddenQqOpenKey" />
+    <input type="hidden" id="hiddenQqUserIp" />
+    <input type="hidden" id="hiddenQqOpenIp" />
+    <!--<input type="hidden" id="hiddenQqUrl" />-->
+    <input type="hidden" id="hiddenUrl" />
+    <input type="hidden" id="hiddenAlipayEncodingAesKey" />
+    <input type="hidden" id="hiddenRcsTocken" />
+    <input type="hidden" id="hiddenRcsEncodingAesKey" />
+    <input type="hidden" id="hiddenRcsEncodingAesType" />
+  </form>
+  <!--<div>
+    上传图片: <input type="file" name="file" style="width: 200px; height: 20px;" onchange="PreviewImage(this)" id="upload" />
+    <div id="imgPreview" style="width:120px; height:100px;margin-left: 280px;">
+    </div>
+  </div>-->
+</body>
+<script src="../javascripts/jquery.min.js?v=2.1.4"></script>
+<script src="../javascripts/layer/layer.min.js"></script>
+<script>
+$(function () {
+	Date.prototype.format = function (format) {
+		var o = {
+			"M+": this.getMonth() + 1, //month
+			"d+": this.getDate(),    //day
+			"h+": this.getHours(),   //hour
+			"m+": this.getMinutes(), //minute
+			"s+": this.getSeconds(), //second
+			"q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+			"S": this.getMilliseconds() //millisecond
+		}
+		if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+			(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o) if (new RegExp("(" + k + ")").test(format))
+			format = format.replace(RegExp.$1,
+				RegExp.$1.length == 1 ? o[k] :
+					("00" + o[k]).substr(("" + o[k]).length));
+		return format;
+	}
+});
+  //新增
+  $("#add").click(function(){
+    layer.open({
+		  type: 2,
+		  area: ['80%', '80%'],
+		  fix: false, //不固定
+		  maxmin: false,
+		  content: './index/add',
+		  title:"新增"
+		});
+  }); 
+    //修改
+  $("#edit").click(function(){
+    if ($('tr.active').length > 0){
+      var channelId = $('tr.active').find('td').eq(0).text();
+      $("#hiddenChannelId").val(channelId);
+      var channelName = $('tr.active').find('td').eq(1).text();
+      $("#hiddenChannelName").val(channelName);
+      var channelRemark = $('tr.active').find('td').eq(2).text();
+      $("#hiddenChannelRemark").val(channelRemark);
+      var channelDescription = $('tr.active').find('td').eq(3).text();
+      $("#hiddenChannelDescription").val(channelDescription);
+      var createUser = $('tr.active').find('td').eq(4).text();
+      $("#hiddenCreateUser").val(createUser);
+      var createTime = $('tr.active').find('td').eq(5).text();
+      $("#hiddenCreateTime").val(createTime);
+      var updateUser = $('tr.active').find('td').eq(6).text();
+      $("#hiddenUpdateUser").val(updateUser);
+      var updateTime = $('tr.active').find('td').eq(7).text();
+      $("#hiddenUpdateTime").val(updateTime);
+      var appId = $('tr.active').find('td').eq(8).text();
+      $("#hiddenAppId").val(appId);
+      var appName = $('tr.active').find('td').eq(9).text();
+      $("#hiddenAppName").val(appName);
+      var appSecret = $('tr.active').find('td').eq(10).text();
+      $("#hiddenAppSecret").val(appSecret);
+      var weiboCid = $('tr.active').find('td').eq(11).text();
+      $("#hiddenWeiboCid").val(weiboCid);
+      var weiboSubAppkey = $('tr.active').find('td').eq(12).text();
+      $("#hiddenWeiboSubAppkey").val(weiboSubAppkey);
+      var weiboTockenString = $('tr.active').find('td').eq(13).text();
+      $("#hiddenWeiboTockenString").val(weiboTockenString);
+      // var weiboUrl = $('tr.active').find('td').eq(13).text();
+      // $("#hiddenWeiboUrl").val(weiboUrl);
+      var alipayRsa2PublicKey = $('tr.active').find('td').eq(14).text();
+      $("#hiddenAlipayRsa2PublicKey").val(alipayRsa2PublicKey);
+      var alipayRsaPublicKey = $('tr.active').find('td').eq(15).text();
+      $("#hiddenAlipayRsaPublicKey").val(alipayRsaPublicKey);
+
+
+      var alipayRsa2ApplicationPublicKey = $('tr.active').find('td').eq(16).text();
+      $("#hiddenAlipayRsa2ApplicationPublicKey").val(alipayRsa2ApplicationPublicKey);
+      var alipayRsaApplicationPublicKey = $('tr.active').find('td').eq(17).text();
+      $("#hiddenAlipayRsaApplicationPublicKey").val(alipayRsaApplicationPublicKey);
+      var alipayPrivateRsa2ApplicationKey = $('tr.active').find('td').eq(18).text();
+      $("#hiddenAlipayPrivateRsa2ApplicationKey").val(alipayPrivateRsa2ApplicationKey);
+      var alipayPrivateRsaApplicationKey = $('tr.active').find('td').eq(19).text();
+      $("#hiddenAlipayPrivateRsaApplicationKey").val(alipayPrivateRsaApplicationKey);
+
+
+      // var alipayPublicKey = $('tr.active').find('td').eq(15).text();
+      // $("#hiddenAlipayPublicKey").val(alipayPublicKey);
+      var alipayEncodingAesKey = $('tr.active').find('td').eq(20).text();
+      $("#hiddenAlipayEncodingAesKey").val(alipayEncodingAesKey);
+      var alipayPid = $('tr.active').find('td').eq(21).text();
+      $("#hiddenAlipayPid").val(alipayPid);
+      // var alipayPrivateKey = $('tr.active').find('td').eq(17).text();
+      // $("#hiddenAlipayPrivateKey").val(alipayPrivateKey);
+      // var alipayAllpayGateway = $('tr.active').find('td').eq(18).text();
+      // $("#hiddenAlipayAllpayGateway").val(alipayAllpayGateway);
+      // var alipayGrantType = $('tr.active').find('td').eq(19).text();
+      // $("#hiddenAlipayGrantType").val(alipayGrantType);
+      // var alipaySignCharset = $('tr.active').find('td').eq(20).text();
+      // $("#hiddenAlipaySignCharset").val(alipaySignCharset);
+      // var alipayCharset = $('tr.active').find('td').eq(21).text();
+      // $("#hiddenAlipayCharset").val(alipayCharset);
+      // var alipaySignType = $('tr.active').find('td').eq(22).text();
+      // $("#hiddenAlipaySignType").val(alipaySignType);
+      // var alipayApplication = $('tr.active').find('td').eq(23).text();
+      // $("#hiddenAlipayApplication").val(alipayApplication);
+      var alipayAuthorizedCallbackAddress = $('tr.active').find('td').eq(22).text();
+      $("#hiddenAlipayAuthorizedCallbackAddress").val(alipayAuthorizedCallbackAddress);
+      // var wechatUrl = $('tr.active').find('td').eq(26).text();
+      // $("#hiddenWechatUrl").val(wechatUrl);
+      var wechatTocken = $('tr.active').find('td').eq(23).text();
+      $("#hiddenWechatTocken").val(wechatTocken);
+      var wechatEncodingAesKey = $('tr.active').find('td').eq(24).text();
+      $("#hiddenWechatEncodingAesKey").val(wechatEncodingAesKey);
+      var wechatEncodingAesType = $('tr.active').find('td').eq(25).text();
+      $("#hiddenWechatEncodingAesType").val(wechatEncodingAesType);
+      // var rcsUrl = $('tr.active').find('td').eq(30).text();
+      // $("#hiddenRcsUrl").val(rcsUrl);
+      var qqOpenKey = $('tr.active').find('td').eq(26).text();
+      $("#hiddenQqOpenKey").val(qqOpenKey);
+      var qqUserIp = $('tr.active').find('td').eq(27).text();
+      console.log(qqUserIp)
+      $("#hiddenQqUserIp").val(qqUserIp);
+      var qqOpenIp = $('tr.active').find('td').eq(28).text();
+      console.log(qqOpenIp)
+      $("#hiddenQqOpenIp").val(qqOpenIp);
+      // var qqUrl = $('tr.active').find('td').eq(34).text();
+      // $("#hiddenQqUrl").val(qqUrl);
+      var id = $('tr.active').find('td').eq(29).text();
+      $("#hiddenId").val(id);
+      var url = $('tr.active').find('td').eq(30).text();
+      console.log(url);
+      $("#hiddenUrl").val(url);
+       var rcsTocken = $('tr.active').find('td').eq(31).text();
+      $("#hiddenRcsTocken").val(rcsTocken);
+       var rcsEncodingAesKey = $('tr.active').find('td').eq(32).text();
+      $("#hiddenRcsEncodingAesKey").val(rcsEncodingAesKey);
+       var rcsEncodingAesType = $('tr.active').find('td').eq(33).text();
+      $("#hiddenRcsEncodingAesType").val(rcsEncodingAesType);
+
+        layer.open({
+              type: 2,
+              area: ['80%', '80%'],
+              fix: false, //不固定
+              maxmin: false,
+              content: './index/edit',
+              title:"修改"
+            });
+    } else {
+          layer.alert('请选择要修改的数据！');
+      }
+  }); 
+  $("#search").click(function(){
+     $.ajax({
+              type: 'get',
+              url: './index/search',
+              dataType: "json",
+              async:true,
+              // data: { id },
+              success: function (data) {
+               data = data.data;
+               console.log(data);
+                var html = '';
+			          for (var i = 0; i < data.length; i++) {
+                  if(data[i].channelId == null) data[i].channelId = '';
+                  if(data[i].channelName == null) data[i].channelName = '';
+                  if(data[i].channelRemark == null) data[i].channelRemark = '';
+                  if(data[i].channelDescription == null) data[i].channelDescription = '';
+                  if(data[i].createUser == null) data[i].createUser = '';
+                  if(data[i].updateUser == null) data[i].updateUser = '';
+                  if(data[i].appId == null) data[i].appId = '';
+                  if(data[i].appName == null) data[i].appName = '';
+                  if(data[i].appSecret == null) data[i].appSecret = '';
+                  if(data[i].weiboCid == null) data[i].weiboCid = '';
+                  if(data[i].weiboSubAppkey == null) data[i].weiboSubAppkey = '';
+                  if(data[i].weiboTockenString == null) data[i].weiboTockenString = '';
+                  // if(data[i].weiboUrl == null) data[i].weiboUrl = '';
+                  // if(data[i].alipayRsa2PublicKey == null) data[i].alipayRsa2PublicKey = '';
+                  // if(data[i].alipayRsaPublicKey == null) data[i].alipayRsaPublicKey = '';
+                  if(data[i].alipayPublicKey == null) data[i].alipayPublicKey = '';
+                  if(data[i].alipayPid == null) data[i].alipayPid = '';
+                  if(data[i].alipayPrivateKey == null) data[i].alipayPrivateKey = '';
+                  if(data[i].alipayAllpayGateway == null) data[i].alipayAllpayGateway = '';
+                  if(data[i].alipayGrantType == null) data[i].alipayGrantType = '';
+                  if(data[i].alipaySignCharset == null) data[i].alipaySignCharset = '';
+                  if(data[i].alipayCharset == null) data[i].alipayCharset = '';
+                  if(data[i].alipaySignType == null) data[i].alipaySignType = '';
+                  if(data[i].alipayApplication == null) data[i].alipayApplication = '';
+                  if(data[i].alipayAuthorizedCallbackAddress == null) data[i].alipayAuthorizedCallbackAddress = '';
+                  // if(data[i].wechatUrl == null) data[i].wechatUrl = '';
+                  if(data[i].wechatTocken == null) data[i].wechatTocken = '';
+                  if(data[i].wechatEncodingAesKey == null) data[i].wechatEncodingAesKey = '';
+                  if(data[i].wechatEncodingAesType == null) data[i].wechatEncodingAesType = '';
+                  if(data[i].alipayEncodingAesKey == null) data[i].alipayEncodingAesKey = '';
+                  // if(data[i].rcs_url == null) data[i].rcs_url = '';
+                  if(data[i].qqOpenKey == null) data[i].qqOpenKey = '';
+                  if(data[i].qqOpenId == null) data[i].qqOpenId = '';
+                  if(data[i].qqUserIp == null) data[i].qqUserIp = '';
+                  // console.log(data[i].alipayRsa2ApplicationPublicKey);
+                  if(data[i].alipayRsa2ApplicationPublicKey == null){
+                      data[i].alipayRsa2ApplicationPublicKey = '';
+                  }else if(data[i].alipayRsa2ApplicationPublicKey.length > 10){
+                      data[i].alipayRsa2ApplicationPublicKey = data[i].alipayRsa2ApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsa2ApplicationPublicKey = data[i].alipayRsa2ApplicationPublicKey;
+                  }
+                  if(data[i].alipayRsaApplicationPublicKey == null){
+                      data[i].alipayRsaApplicationPublicKey = '';
+                  }else if(data[i].alipayRsaApplicationPublicKey.length > 10){
+                      data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey;
+                  }
+                  if(data[i].alipayPrivateRsa2ApplicationKey == null){
+                      data[i].alipayPrivateRsa2ApplicationKey = '';
+                  }else if(data[i].alipayPrivateRsa2ApplicationKey.length > 10){
+                      data[i].alipayPrivateRsa2ApplicationKey = data[i].alipayPrivateRsa2ApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey;
+                  }
+                  if(data[i].alipayPrivateRsaApplicationKey == null){
+                      data[i].alipayPrivateRsaApplicationKey = '';
+                  }else if(data[i].alipayPrivateRsaApplicationKey.length > 10){
+                      data[i].alipayPrivateRsaApplicationKey = data[i].alipayPrivateRsaApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayPrivateRsaApplicationKey = data[i].alipayPrivateRsaApplicationKey;
+                  }
+                  if(data[i].alipayRsa2PublicKey == null){
+                      data[i].alipayRsa2PublicKey = '';
+                  }else if(data[i].alipayRsa2PublicKey.length > 10){
+                      data[i].alipayRsa2PublicKey = data[i].alipayRsa2PublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsa2PublicKey = data[i].alipayRsa2PublicKey;
+                  }
+                  if(data[i].alipayRsaPublicKey == null){
+                      data[i].alipayRsaPublicKey = '';
+                  }else if(data[i].alipayRsaPublicKey.length > 10){
+                      data[i].alipayRsaPublicKey = data[i].alipayRsaPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaPublicKey = data[i].alipayRsaPublicKey;
+                  }
+                  // if(data[i].alipayRsaApplicationPublicKey == null) data[i].alipayRsaApplicationPublicKey = '';
+                  // if(data[i].alipayPrivateRsa2ApplicationKey == null) data[i].alipayPrivateRsa2ApplicationKey = '';
+                  // if(data[i].alipayPrivateRsaApplicationKey == null) data[i].alipayPrivateRsaApplicationKey = '';
+                  if(data[i].rcsTocken == null) data[i].rcsTocken = '';
+                  if(data[i].rcsEncodingAesKey == null) data[i].rcsEncodingAesKey = ''; 
+                  if(data[i].rcsEncodingAesType == null) data[i].rcsEncodingAesType = '';
+                  data[i].createTime = new Date(data[i].createTime).format('yyyy-MM-dd hh:mm:ss');
+                  if(data[i].updateTime == null || data[i].updateTime == ''){
+                    data[i].updateTime = '';
+                  }else{
+                    data[i].updateTime = new Date(data[i].updateTime).format('yyyy-MM-dd hh:mm:ss');
+                    // data[i].updateTime = data.updateTime
+                  }
+                  // console.log(data[i].alipayRsa2ApplicationPublicKey);
+                     html +='<tr><td>' +data[i].channelId +
+                           '</td><td>' +data[i].channelName +
+                           '</td><td>' +data[i].channelRemark +
+                           '</td><td>' +data[i].channelDescription +  
+                           '</td><td>' +data[i].createUser +  // <img src="'+data[i].accountImg+'" width="200px" height="200px">
+                           '</td><td>' +data[i].createTime +
+                           '</td><td>' +data[i].updateUser +
+                           '</td><td>' +data[i].updateTime +
+                           '</td><td>' +data[i].appId +
+                           '</td><td>' +data[i].appName +
+                           '</td><td>' +data[i].appSecret +
+                           '</td><td>' +data[i].weiboCid +
+                           '</td><td>' +data[i].weiboSubAppkey +
+                           '</td><td>' +data[i].weiboTockenString +
+                          //  '</td><td>' +data[i].weiboUrl +
+                           '</td><td>' +data[i].alipayRsa2PublicKey +
+                           '</td><td>' +data[i].alipayRsaPublicKey +
+                                    //  <th>支付宝应用公钥(RSA2)</th>
+                                    // <th>支付宝应用公钥(RSA)</th>
+                                    // <th>支付宝应用私钥(RSA2)</th>
+                                    // <th>支付宝应用私钥(RSA)</th>
+                           '</td><td>' +data[i].alipayRsa2ApplicationPublicKey +
+                           '</td><td>' +data[i].alipayRsaApplicationPublicKey +
+                           '</td><td>' +data[i].alipayPrivateRsa2ApplicationKey +
+                           '</td><td>' +data[i].alipayPrivateRsaApplicationKey +
+                          //  '</td><td>' +data[i].alipayPublicKey +
+                          '</td><td>' +data[i].alipayEncodingAesKey +
+                          
+                           '</td><td>' +data[i].alipayPid +
+                          //  '</td><td>' +data[i].alipayPrivateKey +
+                          //  '</td><td>' +data[i].alipayAllpayGateway +
+                          //  '</td><td>' +data[i].alipayGrantType +
+                          //  '</td><td>' +data[i].alipaySignCharset +
+                          //  '</td><td>' +data[i].alipayCharset +
+                          //  '</td><td>' +data[i].alipaySignType +
+                          //  '</td><td>' +data[i].alipayApplication +
+                           '</td><td>' +data[i].alipayAuthorizedCallbackAddress +
+                          //  '</td><td>' +data[i].wechatUrl +
+                           '</td><td>' +data[i].wechatTocken +
+                           '</td><td>' +data[i].wechatEncodingAesKey +
+                           '</td><td>' +data[i].wechatEncodingAesType +
+                          //  '</td><td>' +data[i].rcs_url +
+                           '</td><td>' +data[i].qqOpenKey +
+                           '</td><td>' +data[i].qqOpenId +
+                           '</td><td>' +data[i].qqUserIp +
+                          //  '</td><td>' +data[i].qqUrl +
+                           '</td><td>' +data[i].id +
+                           '</td><td>' +data[i].url +
+                           '</td><td>' +data[i].rcsTocken +
+                           '</td><td>' +data[i].rcsEncodingAesKey +
+                           '</td><td>' +data[i].rcsEncodingAesType +
+                           '</td></tr>';
+						}
+            // console.log(html);
+						$("#DataList").html(html);
+          }
+    });
+  });
+  $('#searchAccountId').click(function(){
+    var id;
+    if($("#Data").val() == ''){
+     layer.alert('请输入需要查询的id');
+     return false;
+    }else{
+     id = $("#Data").val();
+    }
+        $.ajax({
+              type: 'get',
+              url: './index/id',
+              dataType: "json",
+              async:true,
+              data: { id },
+              success: function (data) {
+                console.log(data);
+                if(data.message != '没有该用户'){
+                  data = data.data; 
+                  // console.log(data);
+                  var html = '';
+                  if(data.channelId == null) data.channelId = '';
+                  if(data.channelName == null) data.channelName = '';
+                  if(data.channelRemark == null) data.channelRemark = '';
+                  if(data.channelDescription == null) data.channelDescription = '';
+                  if(data.createUser == null) data.createUser = '';
+                  if(data.updateUser == null) data.updateUser = '';
+                  if(data.appId == null) data.appId = '';
+                  if(data.appName == null) data.appName = '';
+                  if(data.appSecret == null) data.appSecret = '';
+                  if(data.weiboCid == null) data.weiboCid = '';
+                  if(data.weiboSubAppkey == null) data.weiboSubAppkey = '';
+                  if(data.weiboTockenString == null) data.weiboTockenString = '';
+                  // if(data.weiboUrl == null) data.weiboUrl = '';
+                  // if(data.alipayRsa2PublicKey == null) data.alipayRsa2PublicKey = '';
+                  // if(data.alipayRsaPublicKey == null) data.alipayRsaPublicKey = '';
+                  if(data.alipayPublicKey == null) data.alipayPublicKey = '';
+                  if(data.alipayPid == null) data.alipayPid = '';
+                  if(data.alipayPrivateKey == null) data.alipayPrivateKey = '';
+                  if(data.alipayAllpayGateway == null) data.alipayAllpayGateway = '';
+                  if(data.alipayGrantType == null) data.alipayGrantType = '';
+                  if(data.alipaySignCharset == null) data.alipaySignCharset = '';
+                  if(data.alipayCharset == null) data.alipayCharset = '';
+                  if(data.alipaySignType == null) data.alipaySignType = '';
+                  if(data.alipayApplication == null) data.alipayApplication = '';
+                  if(data.alipayAuthorizedCallbackAddress == null) data.alipayAuthorizedCallbackAddress = '';
+                  // if(data.wechatUrl == null) data.wechatUrl = '';
+                  if(data.wechatTocken == null) data.wechatTocken = '';
+                  if(data.wechatEncodingAesKey == null) data.wechatEncodingAesKey = '';
+                  if(data.wechatEncodingAesType == null) data.wechatEncodingAesType = '';
+                  // if(data.rcs_url == null) data.rcs_url = '';
+                  if(data.qqOpenKey == null) data.qqOpenKey = '';
+                  if(data.qqOpenId == null) data.qqOpenId = '';
+                  if(data.qqUserIp == null) data.qqUserIp = '';
+                  // if(data.alipayRsa2ApplicationPublicKey == null) data.alipayRsa2ApplicationPublicKey = '';
+                  // if(data.alipayRsaApplicationPublicKey == null) data.alipayRsaApplicationPublicKey = '';
+                  // if(data.alipayPrivateRsa2ApplicationKey == null) data.alipayPrivateRsa2ApplicationKey = '';
+                  // if(data.alipayPrivateRsaApplicationKey == null) data.alipayPrivateRsaApplicationKey = '';
+                  if(data.alipayRsa2ApplicationPublicKey == null){
+                      data.alipayRsa2ApplicationPublicKey = '';
+                  }else if(data.alipayRsa2ApplicationPublicKey.length > 10){
+                      data.alipayRsa2ApplicationPublicKey = data.alipayRsa2ApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data.alipayRsa2ApplicationPublicKey = data.alipayRsa2ApplicationPublicKey;
+                  }
+                  if(data.alipayRsaApplicationPublicKey == null){
+                      data.alipayRsaApplicationPublicKey = '';
+                  }else if(data.alipayRsaApplicationPublicKey.length > 10){
+                      data.alipayRsaApplicationPublicKey = data.alipayRsaApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data.alipayRsaApplicationPublicKey = data.alipayRsaApplicationPublicKey;
+                  }
+                  if(data.alipayPrivateRsa2ApplicationKey == null){
+                      data.alipayPrivateRsa2ApplicationKey = '';
+                  }else if(data.alipayPrivateRsa2ApplicationKey.length > 10){
+                      data.alipayPrivateRsa2ApplicationKey = data.alipayPrivateRsa2ApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data.alipayRsaApplicationPublicKey = data.alipayRsaApplicationPublicKey;
+                  }
+                  if(data.alipayPrivateRsaApplicationKey == null){
+                      data.alipayPrivateRsaApplicationKey = '';
+                  }else if(data.alipayPrivateRsaApplicationKey.length > 10){
+                      data.alipayPrivateRsaApplicationKey = data.alipayPrivateRsaApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data.alipayPrivateRsaApplicationKey = data.alipayPrivateRsaApplicationKey;
+                  }
+                  if(data.alipayRsa2PublicKey == null){
+                      data.alipayRsa2PublicKey = '';
+                  }else if(data.alipayRsa2PublicKey.length > 10){
+                      data.alipayRsa2PublicKey = data.alipayRsa2PublicKey.substring(0, 10) + '...';
+                  }else{
+                    data.alipayRsa2PublicKey = data.alipayRsa2PublicKey;
+                  }
+                  if(data.alipayRsaPublicKey == null){
+                      data.alipayRsaPublicKey = '';
+                  }else if(data.alipayRsaPublicKey.length > 10){
+                      data.alipayRsaPublicKey = data.alipayRsaPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data.alipayRsaPublicKey = data.alipayRsaPublicKey;
+                  }
+                  if(data.rcsTocken == null) data.rcsTocken = '';
+                  if(data.rcsEncodingAesKey == null) data.rcsEncodingAesKey = ''; 
+                  if(data.rcsEncodingAesType == null) data.rcsEncodingAesType = '';
+                  if(data.alipayEncodingAesKey == null) data.alipayEncodingAesKey = '';
+                  // if(data.qqUrl == null) data.qqUrl = '';
+                  if(data.updateTime == null || data.updateTime == ''){
+                    data.updateTime = '';
+                  }else{
+                    data.updateTime = new Date(data.updateTime).format('yyyy-MM-dd hh:mm:ss');
+                  }
+                  
+                  data.createTime = new Date(data.createTime).format('yyyy-MM-dd hh:mm:ss');
+                  
+                    html +='<tr><td>' +data.channelId +
+                           '</td><td>' +data.channelName +
+                           '</td><td>' +data.channelRemark +
+                           '</td><td>' +data.channelDescription +  
+                           '</td><td>' +data.createUser +  // <img src="'+data[i].accountImg+'" width="200px" height="200px">
+                           '</td><td>' +data.createTime +
+                           '</td><td>' +data.updateUser +
+                           '</td><td>' +data.updateTime +
+                           '</td><td>' +data.appId +
+                           '</td><td>' +data.appName +
+                           '</td><td>' +data.appSecret +
+                           '</td><td>' +data.weiboCid +
+                           '</td><td>' +data.weiboSubAppkey +
+                           '</td><td>' +data.weiboTockenString +
+                          //  '</td><td>' +data[i].weiboUrl +
+                           '</td><td>' +data.alipayRsa2PublicKey +
+                           '</td><td>' +data.alipayRsaPublicKey +
+                                    //  <th>支付宝应用公钥(RSA2)</th>
+                                    // <th>支付宝应用公钥(RSA)</th>
+                                    // <th>支付宝应用私钥(RSA2)</th>
+                                    // <th>支付宝应用私钥(RSA)</th>
+                           '</td><td>' +data.alipayRsa2ApplicationPublicKey +
+                           '</td><td>' +data.alipayRsaApplicationPublicKey +
+                           '</td><td>' +data.alipayPrivateRsa2ApplicationKey +
+                           '</td><td>' +data.alipayPrivateRsaApplicationKey +
+                          //  '</td><td>' +data[i].alipayPublicKey +
+                          '</td><td>' +data.alipayEncodingAesKey +
+                           '</td><td>' +data.alipayPid +
+                          //  '</td><td>' +data[i].alipayPrivateKey +
+                          //  '</td><td>' +data[i].alipayAllpayGateway +
+                          //  '</td><td>' +data[i].alipayGrantType +
+                          //  '</td><td>' +data[i].alipaySignCharset +
+                          //  '</td><td>' +data[i].alipayCharset +
+                          //  '</td><td>' +data[i].alipaySignType +
+                          //  '</td><td>' +data[i].alipayApplication +
+                           '</td><td>' +data.alipayAuthorizedCallbackAddress +
+                          //  '</td><td>' +data[i].wechatUrl +
+                           '</td><td>' +data.wechatTocken +
+                           '</td><td>' +data.wechatEncodingAesKey +
+                           '</td><td>' +data.wechatEncodingAesType +
+                          //  '</td><td>' +data[i].rcs_url +
+                           '</td><td>' +data.qqOpenKey +
+                           '</td><td>' +data.qqOpenId +
+                           '</td><td>' +data.qqUserIp +
+                          //  '</td><td>' +data[i].qqUrl +
+                           '</td><td>' +data.id +
+                           '</td><td>' +data.url +
+                           '</td><td>' +data.rcsTocken +
+                           '</td><td>' +data.rcsEncodingAesKey +
+                           '</td><td>' +data.rcsEncodingAesType +
+                           '</td></tr>';
+					      	// }
+                           	$("#DataList").html(html);
+                
+                }else {
+                  layer.alert('没有该用户');
+                }
+              }
+    });
+  })
+  $("#searchChannelId").click(function(){
+    var id;
+    if($("#Data").val() == ''){
+     layer.alert('请输入需要查询的ChannelId');
+     return false;
+    }else{
+     id = $("#Data").val();
+    }
+       $.ajax({
+              type: 'get',
+              url: './index/searchChannelId',
+              dataType: "json",
+              async:true,
+              data: { id },
+              success: function (data) {
+                console.log(data);
+          if(data.message != '查询信息不存在'){
+               data = data.data;
+               console.log(data);
+                var html = '';
+			          for (var i = 0; i < data.length; i++) {
+                  if(data[i].channelId == null) data[i].channelId = '';
+                  if(data[i].channelName == null) data[i].channelName = '';
+                  if(data[i].channelRemark == null) data[i].channelRemark = '';
+                  if(data[i].channelDescription == null) data[i].channelDescription = '';
+                  if(data[i].createUser == null) data[i].createUser = '';
+                  if(data[i].updateUser == null) data[i].updateUser = '';
+                  if(data[i].appId == null) data[i].appId = '';
+                  if(data[i].appName == null) data[i].appName = '';
+                  if(data[i].appSecret == null) data[i].appSecret = '';
+                  if(data[i].weiboCid == null) data[i].weiboCid = '';
+                  if(data[i].weiboSubAppkey == null) data[i].weiboSubAppkey = '';
+                  if(data[i].weiboTockenString == null) data[i].weiboTockenString = '';
+                  // if(data[i].weiboUrl == null) data[i].weiboUrl = '';
+                  // if(data[i].alipayRsa2PublicKey == null) data[i].alipayRsa2PublicKey = '';
+                  // if(data[i].alipayRsaPublicKey == null) data[i].alipayRsaPublicKey = '';
+                  if(data[i].alipayPublicKey == null) data[i].alipayPublicKey = '';
+                  if(data[i].alipayPid == null) data[i].alipayPid = '';
+                  if(data[i].alipayPrivateKey == null) data[i].alipayPrivateKey = '';
+                  if(data[i].alipayAllpayGateway == null) data[i].alipayAllpayGateway = '';
+                  if(data[i].alipayGrantType == null) data[i].alipayGrantType = '';
+                  if(data[i].alipaySignCharset == null) data[i].alipaySignCharset = '';
+                  if(data[i].alipayCharset == null) data[i].alipayCharset = '';
+                  if(data[i].alipaySignType == null) data[i].alipaySignType = '';
+                  if(data[i].alipayApplication == null) data[i].alipayApplication = '';
+                  if(data[i].alipayAuthorizedCallbackAddress == null) data[i].alipayAuthorizedCallbackAddress = '';
+                  // if(data[i].wechatUrl == null) data[i].wechatUrl = '';
+                  if(data[i].wechatTocken == null) data[i].wechatTocken = '';
+                  if(data[i].wechatEncodingAesKey == null) data[i].wechatEncodingAesKey = '';
+                  if(data[i].wechatEncodingAesType == null) data[i].wechatEncodingAesType = '';
+                  if(data[i].alipayEncodingAesKey == null) data[i].alipayEncodingAesKey = '';
+                  // if(data[i].rcs_url == null) data[i].rcs_url = '';
+                  if(data[i].qqOpenKey == null) data[i].qqOpenKey = '';
+                  if(data[i].qqOpenId == null) data[i].qqOpenId = '';
+                  if(data[i].qqUserIp == null) data[i].qqUserIp = '';
+                  // console.log(data[i].alipayRsa2ApplicationPublicKey);
+                  if(data[i].alipayRsa2ApplicationPublicKey == null){
+                      data[i].alipayRsa2ApplicationPublicKey = '';
+                  }else if(data[i].alipayRsa2ApplicationPublicKey.length > 10){
+                      data[i].alipayRsa2ApplicationPublicKey = data[i].alipayRsa2ApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsa2ApplicationPublicKey = data[i].alipayRsa2ApplicationPublicKey;
+                  }
+                  if(data[i].alipayRsaApplicationPublicKey == null){
+                      data[i].alipayRsaApplicationPublicKey = '';
+                  }else if(data[i].alipayRsaApplicationPublicKey.length > 10){
+                      data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey;
+                  }
+                  if(data[i].alipayPrivateRsa2ApplicationKey == null){
+                      data[i].alipayPrivateRsa2ApplicationKey = '';
+                  }else if(data[i].alipayPrivateRsa2ApplicationKey.length > 10){
+                      data[i].alipayPrivateRsa2ApplicationKey = data[i].alipayPrivateRsa2ApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey;
+                  }
+                  if(data[i].alipayPrivateRsaApplicationKey == null){
+                      data[i].alipayPrivateRsaApplicationKey = '';
+                  }else if(data[i].alipayPrivateRsaApplicationKey.length > 10){
+                      data[i].alipayPrivateRsaApplicationKey = data[i].alipayPrivateRsaApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayPrivateRsaApplicationKey = data[i].alipayPrivateRsaApplicationKey;
+                  }
+                  if(data[i].alipayRsa2PublicKey == null){
+                      data[i].alipayRsa2PublicKey = '';
+                  }else if(data[i].alipayRsa2PublicKey.length > 10){
+                      data[i].alipayRsa2PublicKey = data[i].alipayRsa2PublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsa2PublicKey = data[i].alipayRsa2PublicKey;
+                  }
+                  if(data[i].alipayRsaPublicKey == null){
+                      data[i].alipayRsaPublicKey = '';
+                  }else if(data[i].alipayRsaPublicKey.length > 10){
+                      data[i].alipayRsaPublicKey = data[i].alipayRsaPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaPublicKey = data[i].alipayRsaPublicKey;
+                  }
+                  // if(data[i].alipayRsaApplicationPublicKey == null) data[i].alipayRsaApplicationPublicKey = '';
+                  // if(data[i].alipayPrivateRsa2ApplicationKey == null) data[i].alipayPrivateRsa2ApplicationKey = '';
+                  // if(data[i].alipayPrivateRsaApplicationKey == null) data[i].alipayPrivateRsaApplicationKey = '';
+                  if(data[i].rcsTocken == null) data[i].rcsTocken = '';
+                  if(data[i].rcsEncodingAesKey == null) data[i].rcsEncodingAesKey = ''; 
+                  if(data[i].rcsEncodingAesType == null) data[i].rcsEncodingAesType = '';
+                  data[i].createTime = new Date(data[i].createTime).format('yyyy-MM-dd hh:mm:ss');
+                  if(data[i].updateTime == null || data[i].updateTime == ''){
+                    data[i].updateTime = '';
+                  }else{
+                    data[i].updateTime = new Date(data[i].updateTime).format('yyyy-MM-dd hh:mm:ss');
+                    // data[i].updateTime = data.updateTime
+                  }
+                  // console.log(data[i].alipayRsa2ApplicationPublicKey);
+                     html +='<tr><td>' +data[i].channelId +
+                           '</td><td>' +data[i].channelName +
+                           '</td><td>' +data[i].channelRemark +
+                           '</td><td>' +data[i].channelDescription +  
+                           '</td><td>' +data[i].createUser +  // <img src="'+data[i].accountImg+'" width="200px" height="200px">
+                           '</td><td>' +data[i].createTime +
+                           '</td><td>' +data[i].updateUser +
+                           '</td><td>' +data[i].updateTime +
+                           '</td><td>' +data[i].appId +
+                           '</td><td>' +data[i].appName +
+                           '</td><td>' +data[i].appSecret +
+                           '</td><td>' +data[i].weiboCid +
+                           '</td><td>' +data[i].weiboSubAppkey +
+                           '</td><td>' +data[i].weiboTockenString +
+                          //  '</td><td>' +data[i].weiboUrl +
+                           '</td><td>' +data[i].alipayRsa2PublicKey +
+                           '</td><td>' +data[i].alipayRsaPublicKey +
+                                    //  <th>支付宝应用公钥(RSA2)</th>
+                                    // <th>支付宝应用公钥(RSA)</th>
+                                    // <th>支付宝应用私钥(RSA2)</th>
+                                    // <th>支付宝应用私钥(RSA)</th>
+                           '</td><td>' +data[i].alipayRsa2ApplicationPublicKey +
+                           '</td><td>' +data[i].alipayRsaApplicationPublicKey +
+                           '</td><td>' +data[i].alipayPrivateRsa2ApplicationKey +
+                           '</td><td>' +data[i].alipayPrivateRsaApplicationKey +
+                          //  '</td><td>' +data[i].alipayPublicKey +
+                          '</td><td>' +data[i].alipayEncodingAesKey +
+                          
+                           '</td><td>' +data[i].alipayPid +
+                          //  '</td><td>' +data[i].alipayPrivateKey +
+                          //  '</td><td>' +data[i].alipayAllpayGateway +
+                          //  '</td><td>' +data[i].alipayGrantType +
+                          //  '</td><td>' +data[i].alipaySignCharset +
+                          //  '</td><td>' +data[i].alipayCharset +
+                          //  '</td><td>' +data[i].alipaySignType +
+                          //  '</td><td>' +data[i].alipayApplication +
+                           '</td><td>' +data[i].alipayAuthorizedCallbackAddress +
+                          //  '</td><td>' +data[i].wechatUrl +
+                           '</td><td>' +data[i].wechatTocken +
+                           '</td><td>' +data[i].wechatEncodingAesKey +
+                           '</td><td>' +data[i].wechatEncodingAesType +
+                          //  '</td><td>' +data[i].rcs_url +
+                           '</td><td>' +data[i].qqOpenKey +
+                           '</td><td>' +data[i].qqOpenId +
+                           '</td><td>' +data[i].qqUserIp +
+                          //  '</td><td>' +data[i].qqUrl +
+                           '</td><td>' +data[i].id +
+                           '</td><td>' +data[i].url +
+                           '</td><td>' +data[i].rcsTocken +
+                           '</td><td>' +data[i].rcsEncodingAesKey +
+                           '</td><td>' +data[i].rcsEncodingAesType +
+                           '</td></tr>';
+						}
+						$("#DataList").html(html);
+          }else{
+            layer.alert('没有此channelId数据')
+          }
+          }
+       });
+  })
+  $("#searchBusinessType").click(function(){
+    var id;
+    if($("#Data").val() == ''){
+     layer.alert('请输入需要查询的AppId');
+     return false;
+    }else{
+     id = $("#Data").val();
+    }
+       $.ajax({
+              type: 'get',
+              url: './index/searchBusinessType',
+              dataType: "json",
+              async:true,
+              data: { id },
+              success: function (data) {
+                console.log(data);
+               if(data.message != '查询信息不存在'){
+               data = data.data;
+               console.log(data);
+                var html = '';
+			          for (var i = 0; i < data.length; i++) {
+                  if(data[i].channelId == null) data[i].channelId = '';
+                  if(data[i].channelName == null) data[i].channelName = '';
+                  if(data[i].channelRemark == null) data[i].channelRemark = '';
+                  if(data[i].channelDescription == null) data[i].channelDescription = '';
+                  if(data[i].createUser == null) data[i].createUser = '';
+                  if(data[i].updateUser == null) data[i].updateUser = '';
+                  if(data[i].appId == null) data[i].appId = '';
+                  if(data[i].appName == null) data[i].appName = '';
+                  if(data[i].appSecret == null) data[i].appSecret = '';
+                  if(data[i].weiboCid == null) data[i].weiboCid = '';
+                  if(data[i].weiboSubAppkey == null) data[i].weiboSubAppkey = '';
+                  if(data[i].weiboTockenString == null) data[i].weiboTockenString = '';
+                  // if(data[i].weiboUrl == null) data[i].weiboUrl = '';
+                  // if(data[i].alipayRsa2PublicKey == null) data[i].alipayRsa2PublicKey = '';
+                  // if(data[i].alipayRsaPublicKey == null) data[i].alipayRsaPublicKey = '';
+                  if(data[i].alipayPublicKey == null) data[i].alipayPublicKey = '';
+                  if(data[i].alipayPid == null) data[i].alipayPid = '';
+                  if(data[i].alipayPrivateKey == null) data[i].alipayPrivateKey = '';
+                  if(data[i].alipayAllpayGateway == null) data[i].alipayAllpayGateway = '';
+                  if(data[i].alipayGrantType == null) data[i].alipayGrantType = '';
+                  if(data[i].alipaySignCharset == null) data[i].alipaySignCharset = '';
+                  if(data[i].alipayCharset == null) data[i].alipayCharset = '';
+                  if(data[i].alipaySignType == null) data[i].alipaySignType = '';
+                  if(data[i].alipayApplication == null) data[i].alipayApplication = '';
+                  if(data[i].alipayAuthorizedCallbackAddress == null) data[i].alipayAuthorizedCallbackAddress = '';
+                  // if(data[i].wechatUrl == null) data[i].wechatUrl = '';
+                  if(data[i].wechatTocken == null) data[i].wechatTocken = '';
+                  if(data[i].wechatEncodingAesKey == null) data[i].wechatEncodingAesKey = '';
+                  if(data[i].wechatEncodingAesType == null) data[i].wechatEncodingAesType = '';
+                  if(data[i].alipayEncodingAesKey == null) data[i].alipayEncodingAesKey = '';
+                  // if(data[i].rcs_url == null) data[i].rcs_url = '';
+                  if(data[i].qqOpenKey == null) data[i].qqOpenKey = '';
+                  if(data[i].qqOpenId == null) data[i].qqOpenId = '';
+                  if(data[i].qqUserIp == null) data[i].qqUserIp = '';
+                  // console.log(data[i].alipayRsa2ApplicationPublicKey);
+                  if(data[i].alipayRsa2ApplicationPublicKey == null){
+                      data[i].alipayRsa2ApplicationPublicKey = '';
+                  }else if(data[i].alipayRsa2ApplicationPublicKey.length > 10){
+                      data[i].alipayRsa2ApplicationPublicKey = data[i].alipayRsa2ApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsa2ApplicationPublicKey = data[i].alipayRsa2ApplicationPublicKey;
+                  }
+                  if(data[i].alipayRsaApplicationPublicKey == null){
+                      data[i].alipayRsaApplicationPublicKey = '';
+                  }else if(data[i].alipayRsaApplicationPublicKey.length > 10){
+                      data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey;
+                  }
+                  if(data[i].alipayPrivateRsa2ApplicationKey == null){
+                      data[i].alipayPrivateRsa2ApplicationKey = '';
+                  }else if(data[i].alipayPrivateRsa2ApplicationKey.length > 10){
+                      data[i].alipayPrivateRsa2ApplicationKey = data[i].alipayPrivateRsa2ApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaApplicationPublicKey = data[i].alipayRsaApplicationPublicKey;
+                  }
+                  if(data[i].alipayPrivateRsaApplicationKey == null){
+                      data[i].alipayPrivateRsaApplicationKey = '';
+                  }else if(data[i].alipayPrivateRsaApplicationKey.length > 10){
+                      data[i].alipayPrivateRsaApplicationKey = data[i].alipayPrivateRsaApplicationKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayPrivateRsaApplicationKey = data[i].alipayPrivateRsaApplicationKey;
+                  }
+                  if(data[i].alipayRsa2PublicKey == null){
+                      data[i].alipayRsa2PublicKey = '';
+                  }else if(data[i].alipayRsa2PublicKey.length > 10){
+                      data[i].alipayRsa2PublicKey = data[i].alipayRsa2PublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsa2PublicKey = data[i].alipayRsa2PublicKey;
+                  }
+                  if(data[i].alipayRsaPublicKey == null){
+                      data[i].alipayRsaPublicKey = '';
+                  }else if(data[i].alipayRsaPublicKey.length > 10){
+                      data[i].alipayRsaPublicKey = data[i].alipayRsaPublicKey.substring(0, 10) + '...';
+                  }else{
+                    data[i].alipayRsaPublicKey = data[i].alipayRsaPublicKey;
+                  }
+                  // if(data[i].alipayRsaApplicationPublicKey == null) data[i].alipayRsaApplicationPublicKey = '';
+                  // if(data[i].alipayPrivateRsa2ApplicationKey == null) data[i].alipayPrivateRsa2ApplicationKey = '';
+                  // if(data[i].alipayPrivateRsaApplicationKey == null) data[i].alipayPrivateRsaApplicationKey = '';
+                  if(data[i].rcsTocken == null) data[i].rcsTocken = '';
+                  if(data[i].rcsEncodingAesKey == null) data[i].rcsEncodingAesKey = ''; 
+                  if(data[i].rcsEncodingAesType == null) data[i].rcsEncodingAesType = '';
+                  data[i].createTime = new Date(data[i].createTime).format('yyyy-MM-dd hh:mm:ss');
+                  if(data[i].updateTime == null || data[i].updateTime == ''){
+                    data[i].updateTime = '';
+                  }else{
+                    data[i].updateTime = new Date(data[i].updateTime).format('yyyy-MM-dd hh:mm:ss');
+                    // data[i].updateTime = data.updateTime
+                  }
+                  // console.log(data[i].alipayRsa2ApplicationPublicKey);
+                     html +='<tr><td>' +data[i].channelId +
+                           '</td><td>' +data[i].channelName +
+                           '</td><td>' +data[i].channelRemark +
+                           '</td><td>' +data[i].channelDescription +  
+                           '</td><td>' +data[i].createUser +  // <img src="'+data[i].accountImg+'" width="200px" height="200px">
+                           '</td><td>' +data[i].createTime +
+                           '</td><td>' +data[i].updateUser +
+                           '</td><td>' +data[i].updateTime +
+                           '</td><td>' +data[i].appId +
+                           '</td><td>' +data[i].appName +
+                           '</td><td>' +data[i].appSecret +
+                           '</td><td>' +data[i].weiboCid +
+                           '</td><td>' +data[i].weiboSubAppkey +
+                           '</td><td>' +data[i].weiboTockenString +
+                          //  '</td><td>' +data[i].weiboUrl +
+                           '</td><td>' +data[i].alipayRsa2PublicKey +
+                           '</td><td>' +data[i].alipayRsaPublicKey +
+                                    //  <th>支付宝应用公钥(RSA2)</th>
+                                    // <th>支付宝应用公钥(RSA)</th>
+                                    // <th>支付宝应用私钥(RSA2)</th>
+                                    // <th>支付宝应用私钥(RSA)</th>
+                           '</td><td>' +data[i].alipayRsa2ApplicationPublicKey +
+                           '</td><td>' +data[i].alipayRsaApplicationPublicKey +
+                           '</td><td>' +data[i].alipayPrivateRsa2ApplicationKey +
+                           '</td><td>' +data[i].alipayPrivateRsaApplicationKey +
+                          //  '</td><td>' +data[i].alipayPublicKey +
+                          '</td><td>' +data[i].alipayEncodingAesKey +
+                          
+                           '</td><td>' +data[i].alipayPid +
+                          //  '</td><td>' +data[i].alipayPrivateKey +
+                          //  '</td><td>' +data[i].alipayAllpayGateway +
+                          //  '</td><td>' +data[i].alipayGrantType +
+                          //  '</td><td>' +data[i].alipaySignCharset +
+                          //  '</td><td>' +data[i].alipayCharset +
+                          //  '</td><td>' +data[i].alipaySignType +
+                          //  '</td><td>' +data[i].alipayApplication +
+                           '</td><td>' +data[i].alipayAuthorizedCallbackAddress +
+                          //  '</td><td>' +data[i].wechatUrl +
+                           '</td><td>' +data[i].wechatTocken +
+                           '</td><td>' +data[i].wechatEncodingAesKey +
+                           '</td><td>' +data[i].wechatEncodingAesType +
+                          //  '</td><td>' +data[i].rcs_url +
+                           '</td><td>' +data[i].qqOpenKey +
+                           '</td><td>' +data[i].qqOpenId +
+                           '</td><td>' +data[i].qqUserIp +
+                          //  '</td><td>' +data[i].qqUrl +
+                           '</td><td>' +data[i].id +
+                           '</td><td>' +data[i].url +
+                           '</td><td>' +data[i].rcsTocken +
+                           '</td><td>' +data[i].rcsEncodingAesKey +
+                           '</td><td>' +data[i].rcsEncodingAesType +
+                           '</td></tr>';
+						}
+						$("#DataList").html(html);
+            }else{
+              layer.alert('没有此AppId数据');
+            }
+          }
+       });
+  })
+  //加样式
+  $(document).on('click', 'tbody tr', function () {
+    $(this).addClass("active");
+    $(this).siblings().removeClass("active");
+    
+  })
+    //删除
+  $("#del").click(function () {
+      if ($('tr.active').length > 0){
+         layer.confirm('确定删除已选中数据？', { btn: ['确定', '取消']},function(index){
+           var id = $('tr.active').find('td').eq(29).text();
+           console.log(id);
+           $.ajax({
+                  type: 'post',
+                  url: './index/delete',
+                  data: { id },
+                  success: function (arr) {
+                    console.log(arr)
+                    arr = JSON.parse(arr);
+                    console.log(arr.message);
+                      if (arr.message == '成功') {
+                          layer.alert("删除成功", function () { location.reload(); });
+                      } else {
+                          layer.alert(arr.errorMsg, function () { location.reload(); });
+                      }
+                  }
+              });
+              layer.close(index);
+         });
+          
+      } else {
+          layer.alert('请选择要删除的数据！');
+      }
+  });
+
+
+
+function PreviewImage(imgFile)
+{
+    var filextension=imgFile.value.substring(imgFile.value.lastIndexOf("."),imgFile.value.length);
+    filextension=filextension.toLowerCase();
+    if ((filextension!='.jpg')&&(filextension!='.gif')&&(filextension!='.jpeg')&&(filextension!='.png')&&(filextension!='.bmp'))
+    {
+    alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
+    imgFile.focus();
+    }else{
+    var path;
+    if(document.all)//IE
+    {
+    imgFile.select();
+    path = document.selection.createRange().text;
+   
+    document.getElementById("imgPreview").innerHTML="";
+    document.getElementById("imgPreview").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")";//使用滤镜效果  
+    }
+    else//FF
+    {
+    path = imgFile.files[0].getAsDataURL();
+    document.getElementById("imgPreview").innerHTML = "<img id='img1' width='120px' height='100px' src='"+path+"'/>";
+    // document.getElementById("img1").src = path;
+    }
+    }
+}
+  </script>
+
+</html>

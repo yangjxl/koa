@@ -1,0 +1,272 @@
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>account</title>
+  <style>
+    table tr {
+      cursor: pointer;
+    }
+    
+    table tr.active {
+      background: #999
+    }
+  </style>
+</head>
+
+<body>
+  <div style="text-align:center;margin-top:35px">
+    <!--accountOriginalId:<input type="text" id="accountOriginalId" name="accountOriginalId" />-->
+    <button id="pageSearch" type="button">分页&nbsp;搜索</button>
+  </div>
+  <div id="pt" class="conditions_table" style="margin-top:35px"></div>
+  <!--<div id="myDiv" style="margin-top:35px">
+    <table id="tableExcel" width="100%" border="1" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th>账号应用ID</th>
+          <th>账号应用密钥</th>
+          <th>账号描述</th>
+          <th>账户ID</th>
+          <th>备注名称</th>
+          <th>账号图片</th>
+          <th>账号名称</th>
+          <th>账号原始ID</th>
+          <th>账号主体</th>
+          <th>账号类型</th>
+          <th>账号服务器地址</th>
+          <th>账号绑定状态</th>
+          <th>账号绑定时间</th>
+          <th>微信账号类型</th>
+          <th>账号渠道</th>
+          <th>客户应用ip</th>
+          <th>创建时间</th>
+          <th>创建用户</th>
+          <th>更改时间</th>
+          <th>更改用户</th>
+        </tr>
+      </thead>
+      <tbody id="DataList">
+      </tbody>
+    </table>
+    <div style="margin-top:30px">
+     <span>共<span class='total'></span>条数据</span>
+     <span style="margin-left:1075px"><a href="javascript:;" class="dt-prev">上一页</a>
+     第 <span id="curPage"></span>/<span id="totalPage"></span> 页
+     <a href="javascript:;" class="dt-next">下一页</a>
+     </span>
+    </div>
+  </div>-->
+</body>
+<script src="../javascripts/jquery.min.js?v=2.1.4"></script>
+<script src="../javascripts/layer/layer.min.js"></script>
+<script src="../javascripts/pagerTable/pagerTable.js"></script>
+<script>
+// var currpage = 1;
+$(function () {
+  // $('#curPage').text(currpage);
+	Date.prototype.format = function (format) {
+		var o = {
+			"M+": this.getMonth() + 1, //month
+			"d+": this.getDate(),    //day
+			"h+": this.getHours(),   //hour
+			"m+": this.getMinutes(), //minute
+			"s+": this.getSeconds(), //second
+			"q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+			"S": this.getMilliseconds() //millisecond
+		}
+		if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+			(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o) if (new RegExp("(" + k + ")").test(format))
+			format = format.replace(RegExp.$1,
+				RegExp.$1.length == 1 ? o[k] :
+					("00" + o[k]).substr(("" + o[k]).length));
+		return format;
+	}
+
+});
+  $("#search").click(function(){
+     $.ajax({
+              type: 'get',
+              url: './index/search',
+              dataType: "json",
+              async:true,
+              // data: { id },
+              success: function (data) {
+               data = data.data;
+              //  console.log(data);
+                var html = '';
+			          for (var i = 0; i < data.length; i++) {
+                  data[i].bindTime = new Date(data[i].bindTime).format('yyyy-MM-dd hh:mm:ss');
+                  data[i].createTime = new Date(data[i].createTime).format('yyyy-MM-dd hh:mm:ss');
+                  data[i].updateTime = new Date(data[i].updateTime).format('yyyy-MM-dd hh:mm:ss');
+				           html += '<tr><td>'+ data[i].accountAppId +
+                           '</td><td>' +data[i].accountAppSecret +
+                           '</td><td>' +data[i].accountDescription +
+                           '</td><td>' +data[i].accountId +
+                           '</td><td>' +data[i].accountRemark +
+                           '</td><td>' +data[i].accountImg +
+                           '</td><td>' +data[i].accountName +
+                           '</td><td>' +data[i].accountOriginalId +
+                           '</td><td>' +data[i].accountSubject +
+                           '</td><td>' +data[i].accountType +
+                           '</td><td>' +data[i].accountUrl +
+                           '</td><td>' +data[i].bindStatus +
+                           '</td><td>' +data[i].bindTime +
+                           '</td><td>' +data[i].businessType +
+                           '</td><td>' +data[i].channelId +
+                           '</td><td>' +data[i].clientIp +
+                           '</td><td>' +data[i].createTime +
+                           '</td><td>' +data[i].createUser +
+                           '</td><td>' +data[i].updateTime +
+                           '</td><td>' +data[i].updateUser +
+                           '</td></tr>';
+						}
+						$("#DataList").html(html);
+          }
+    });
+  });
+  $('#pageSearch').click(function(){
+    // var array = {};
+    // array.accountOriginalId = $("#accountOriginalId").val();
+    $('#pt').pagerTable({
+      type: 'POST',
+      url: './users/pageSearch',
+      data: {
+        pageNum: 1,
+        pageSize: 2,
+        // accountOriginalId: $("#accountOriginalId").val()
+      },
+      checkable: false,
+      captains: '渠道id 渠道名称 渠道备注 渠道描述 创建用户 创建时间 更改用户 更改时间 应用ID 应用密钥 用户uid 子key 微博token 微博服务器地址 支付宝公钥(RSA2) 支付宝公钥(RSA) 支付宝公钥 账号PID 支付宝私钥 支付宝网关 授权类型 支付宝签名编码 支付宝编码 支付宝签名类型 支付宝应用网关 支付宝授权回调地址 微信服务器地址 微信令牌 微信消息加解密密钥 微信消息加解密类型 飞信服务器地址 QQtoken QQopenid 外网IP QQ服务器地址',
+      bodyData: function (data) {
+         console.log(data);
+              var html = '';
+              for (var i = 0; i < data.length; i++) {
+                if(data[i].channelId == null) data[i].channelId = '';
+                  if(data[i].channelName == null) data[i].channelName = '';
+                  if(data[i].channelRemark == null) data[i].channelRemark = '';
+                  if(data[i].channelDescription == null) data[i].channelDescription = '';
+                  if(data[i].createUser == null) data[i].createUser = '';
+                  if(data[i].updateUser == null) data[i].updateUser = '';
+                  if(data[i].appId == null) data[i].appId = '';
+                  if(data[i].appSecret == null) data[i].appSecret = '';
+                  if(data[i].weiboCid == null) data[i].weiboCid = '';
+                  if(data[i].weiboSubAppkey == null) data[i].weiboSubAppkey = '';
+                  if(data[i].weiboTockenString == null) data[i].weiboTockenString = '';
+                  if(data[i].weiboUrl == null) data[i].weiboUrl = '';
+                  if(data[i].alipayRsa2PublicKey == null) data[i].alipayRsa2PublicKey = '';
+                  if(data[i].alipayRsaPublicKey == null) data[i].alipayRsaPublicKey = '';
+                  if(data[i].alipayPublicKey == null) data[i].alipayPublicKey = '';
+                  if(data[i].alipayPid == null) data[i].alipayPid = '';
+                  if(data[i].alipayPrivateKey == null) data[i].alipayPrivateKey = '';
+                  if(data[i].alipayAllpayGateway == null) data[i].alipayAllpayGateway = '';
+                  if(data[i].alipayGrantType == null) data[i].alipayGrantType = '';
+                  if(data[i].alipaySignCharset == null) data[i].alipaySignCharset = '';
+                  if(data[i].alipayCharset == null) data[i].alipayCharset = '';
+                  if(data[i].alipaySignType == null) data[i].alipaySignType = '';
+                  if(data[i].alipayApplication == null) data[i].alipayApplication = '';
+                  if(data[i].alipayAuthorizedCallbackAddress == null) data[i].alipayAuthorizedCallbackAddress = '';
+                  if(data[i].wechatUrl == null) data[i].wechatUrl = '';
+                  if(data[i].wechatTocken == null) data[i].wechatTocken = '';
+                  if(data[i].wechatEncodingAesKey == null) data[i].wechatEncodingAesKey = '';
+                  if(data[i].wechatEncodingAesType == null) data[i].wechatEncodingAesType = '';
+                  if(data[i].rcs_url == null) data[i].rcs_url = '';
+                  if(data[i].qqOpenKey == null) data[i].qqOpenKey = '';
+                  if(data[i].qqOpenId == null) data[i].qqOpenId = '';
+                  if(data[i].qqUserIp == null) data[i].qqUserIp = '';
+                  if(data[i].qqUrl == null) data[i].qqUrl = '';
+                data[i].createTime = new Date(data[i].createTime).format('yyyy-MM-dd hh:mm:ss');
+                data[i].updateTime = new Date(data[i].updateTime).format('yyyy-MM-dd hh:mm:ss');
+                 html +='<tr><td>' +data[i].channelId +
+                           '</td><td>' +data[i].channelName +
+                           '</td><td>' +data[i].channelRemark +
+                           '</td><td>' +data[i].channelDescription +  
+                           '</td><td>' +data[i].createUser +  // <img src="'+data[i].accountImg+'" width="200px" height="200px">
+                           '</td><td>' +data[i].createTime +
+                           '</td><td>' +data[i].updateUser +
+                           '</td><td>' +data[i].updateTime +
+                           '</td><td>' +data[i].appId +
+                           '</td><td>' +data[i].appSecret +
+                           '</td><td>' +data[i].weiboCid +
+                           '</td><td>' +data[i].weiboSubAppkey +
+                           '</td><td>' +data[i].weiboTockenString +
+                           '</td><td>' +data[i].weiboUrl +
+                           '</td><td>' +data[i].alipayRsa2PublicKey +
+                           '</td><td>' +data[i].alipayRsaPublicKey +
+                           '</td><td>' +data[i].alipayPublicKey +
+                           '</td><td>' +data[i].alipayPid +
+                           '</td><td>' +data[i].alipayPrivateKey +
+                           '</td><td>' +data[i].alipayAllpayGateway +
+                           '</td><td>' +data[i].alipayGrantType +
+                           '</td><td>' +data[i].alipaySignCharset +
+                           '</td><td>' +data[i].alipayCharset +
+                           '</td><td>' +data[i].alipaySignType +
+                           '</td><td>' +data[i].alipayApplication +
+                           '</td><td>' +data[i].alipayAuthorizedCallbackAddress +
+                           '</td><td>' +data[i].wechatUrl +
+                           '</td><td>' +data[i].wechatTocken +
+                           '</td><td>' +data[i].wechatEncodingAesKey +
+                           '</td><td>' +data[i].wechatEncodingAesType +
+                           '</td><td>' +data[i].rcs_url +
+                           '</td><td>' +data[i].qqOpenKey +
+                           '</td><td>' +data[i].qqOpenId +
+                           '</td><td>' +data[i].qqUserIp +
+                           '</td><td>' +data[i].qqUrl +
+                           '</td></tr>';
+
+        }
+        return html;
+      }
+      });
+    // var array = {};
+    // array.accountOriginalId = $("#accountOriginalId").val();
+    //     $.ajax({
+    //           type: 'post',
+    //           url: './users/pageSearch',
+    //           dataType: "json",
+    //           async:true,
+    //           data: { accountOriginalId },
+    //           success: function (data) {
+    //            data = data.data;
+    //            console.log(data);
+    //             var html = '';
+		// 	          // for (var i = 0; i < data.length; i++) {
+    //               data.bindTime = new Date(data.bindTime).format('yyyy-MM-dd hh:mm:ss');
+    //               data.createTime = new Date(data.createTime).format('yyyy-MM-dd hh:mm:ss');
+    //               data.updateTime = new Date(data.updateTime).format('yyyy-MM-dd hh:mm:ss');
+		// 		           html += '<tr><td>'+ data.accountAppId +
+    //                        '</td><td>' +data.accountAppSecret +
+    //                        '</td><td>' +data.accountDescription +
+    //                        '</td><td>' +data.accountId +
+    //                        '</td><td>' +data.accountRemark +
+    //                        '</td><td>' +data.accountImg +
+    //                        '</td><td>' +data.accountName +
+    //                        '</td><td>' +data.accountOriginalId +
+    //                        '</td><td>' +data.accountSubject +
+    //                        '</td><td>' +data.accountType +
+    //                        '</td><td>' +data.accountUrl +
+    //                        '</td><td>' +data.bindStatus +
+    //                        '</td><td>' +data.bindTime +
+    //                        '</td><td>' +data.businessType +
+    //                        '</td><td>' +data.channelId +
+    //                        '</td><td>' +data.clientIp +
+    //                        '</td><td>' +data.createTime +
+    //                        '</td><td>' +data.createUser +
+    //                        '</td><td>' +data.updateTime +
+    //                        '</td><td>' +data.updateUser +
+    //                        '</td></tr>';
+		// 				// }
+    //         console.log(html);
+		// 				$("#DataList").html(html);
+    //       }
+    // });
+  })
+  //加样式
+  $(document).on('click', 'tr', function () {
+    $(this).addClass("active");
+    $(this).siblings().removeClass("active");
+  })
+  </script>
+
+</html>

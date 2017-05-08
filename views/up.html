@@ -1,0 +1,84 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="../javascripts/jquery.min.js"></script>
+  <!--<script src="../Plugin/swfobject.js" type="text/javascript"></script>-->
+  <script src="../javascripts/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+  <div>
+    <tr>
+      <th scope="row">图 片：</th>
+      <td>
+        <div style="float:left;width:125px;height:35px;">
+          <input type="file" name="uploadify" id="uploadify" />
+          <!--<%--上传时的进度条--%>-->
+        </div>
+        <div id="fileQueue" style="float:left;height:35px;"></div>
+        <div style="float:left;height:35px;">
+          <a href="javascript:$('#uploadify').uploadifyUpload()" class="btn-lit"><span>上传</span></a>
+          <a href="javascript:$('#uploadify').uploadifyClearQueue()" class="btn-lit"><span>取消上传</span></a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"> </th>
+      <td>
+        <asp:Image ID="pic" runat="server" />
+      </td>
+      <!--<%--成功上传生成图片预览功能--%>-->
+    </tr>
+  </div>
+  <script>
+//uploadify插件的自定义设置
+$(document).ready(function () {
+ $("#uploadify").uploadify({
+  'uploader': '../Plugin/uploadify.swf',
+  'script': 'UploadImg.ashx',
+  'cancelImg': '../Plugin/cancel.png',
+  'folder': '../upload',
+  'buttonText': 'SELECT Pic',
+  'fileExt': '*.jpg;*.gif,*.png',     //允许上传的文件格式为*.jpg,*.gif,*.png
+  'fileDesc': 'Web Image Files(.JPG,.GIF,.PNG)', //过滤掉除了*.jpg,*.gif,*.png的文件
+  'queueID': 'fileQueue',
+  'sizeLimit': '2048000',       //最大允许的文件大小为2M
+  'auto': false,         //需要手动的提交申请
+  'multi': false,         //一次只允许上传一张图片
+  'onCancel': funCancel,       //当用户取消上传时
+  'onComplete': funComplete,      //完成上传任务
+  'OnError': funError        //上传发生错误时
+ });
+});
+ 
+//用户取消函数
+function funCancel(event, ID, fileObj, data) {
+ jBox.tip('您取消了' + fileObj.name + '操作', 'info');
+ return;
+}
+ 
+//图片上传发生的事件
+function funComplete(event, ID, fileObj, response, data) {
+ //$("#pic").html('<img id="pic" runat="server" src=../upload/' + response + '.jpg style="width:300;height:200px;"/>');
+ if (response == 0) {
+  jBox.tip('图片' + fileObj.name + '操作失败', 'info');
+  return;
+ }
+ $("#pic").attr("src", "../upload/" + response).height(200).width(300);
+ jBox.tip('图片' + fileObj.name + '操作成功', 'info');
+ return;
+}
+ 
+//上传发生错误时。
+function funError(event, ID, fileObj, errorObj) {
+ jBox.tip(errorObj.info);
+ return;
+}
+</script>
+  <script type="text/javascript" src="../javascripts/jquery.min.js"></script>
+  <!--<script src="../Plugin/swfobject.js" type="text/javascript"></script>-->
+  <script src="../javascripts/jquery.uploadify.min.js" type="text/javascript"></script>
+</body>
+
+</html>
